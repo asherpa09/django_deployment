@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/login_reg_style.css' %}">
+
+</head>
+
+<body>
+    <div class="container">
+        <h3 style="text-align:center;">Welcome {{user.first_name}} {{user.last_name}}</h3>
+        <a href="/logout"><button type="button" class="btn btn-default">Logout</button></a><hr>
+        <h5 style="text-align:center;">Games available for sign up</h5>
+        <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Games</th>
+                <th>Location</th>
+                <th>Start Date</th>
+                <th># Of Players Signed Up</th>               
+              </tr>
+            </thead>
+            <tbody>
+                {% for game in all_games %}
+              <tr>
+                <td><a href="/game/{{game.id}}">{{game.game_name}}</a></td>
+                <td>{{game.location}}</td>
+                <td>{{game.start_date}}</td>
+                <td>{{game.players.count}}</td>
+              </tr>
+              {% endfor %}
+              </tbody>
+          </table>
+          <a href="/success/createGameForm"><button type="button" class="btn btn-primary">Create a new game</button></a>
+    </div>
+</body>
+
+</html>

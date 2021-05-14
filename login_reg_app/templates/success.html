@@ -17,15 +17,16 @@
 
 <body>
     <div class="container">
-        <h3 style="text-align:center;">Welcome {{user.first_name}} {{user.last_name}}</h3>
+        <h3>Welcome {{user.first_name}} {{user.last_name}}</h3>
         <a href="/logout"><button type="button" class="btn btn-default">Logout</button></a><hr>
-        <h5 style="text-align:center;">Games available for sign up</h5>
+        <h5>Games available for sign up</h5>
         <table class="table table-bordered">
             <thead>
               <tr>
                 <th>Games</th>
                 <th>Location</th>
                 <th>Start Date</th>
+                <th>Start Time</th>
                 <th># Of Players Signed Up</th>               
               </tr>
             </thead>
@@ -35,7 +36,8 @@
                 <td><a href="/game/{{game.id}}">{{game.game_name}}</a></td>
                 <td>{{game.location}}</td>
                 <td>{{game.start_date}}</td>
-                <td>{{game.players.count}}</td>
+                <td>{{game.start_time}}</td>
+                <td><a href="/game/{{game.id}}">{{game.players.count}}</a></td>
               </tr>
               {% endfor %}
               </tbody>

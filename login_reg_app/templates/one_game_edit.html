@@ -17,11 +17,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous">
     </script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/one_game_edit.css' %}">
 </head>
 
 <body>
     <div class="container">        
-        <h4 style="text-align:center;">Welcome {{user.first_name}} {{user.last_name}}! Edit the game you posted!</h4>
+        <h4>Welcome {{user.first_name}} {{user.last_name}}! Edit the game you posted!</h4>
         
         <a href="/logout"><button style="margin-left: 80%;" class="btn btn-info">Logout</button></a><hr>
             {% if messages %}
@@ -44,6 +46,10 @@
                 <div class="form-group">
                     <label for="start_date">Start Date: </label>
                     <input type="date" name="start_date" placeholder="{{one_game.start_date}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="start_time">Start Time: </label>
+                    <input type="time" name="start_time" placeholder="{{one_game.start_time}}" class="form-control">
                 </div>
                 <button class="btn btn-success">Edit</button>        
             </form><hr>

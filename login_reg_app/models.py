@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, time
 import re
 import bcrypt
 
@@ -67,13 +67,17 @@ class GameManager(models.Manager):
     def game_validator(self, postData):
         errors = {}
         if postData['game_name'] == '':
-            errors['game_name'] = "Please enter a name"
+            errors['game_name'] = "Please enter a game name"
+        if len(postData['game_name']) < 3:
+                errors['game_name'] = "Game name must be at least 3 characters long"
         if postData['location'] == '':
             errors['location'] = "Please enter a location"
         if postData['start_date'] == '': 
             errors['start_date'] = "Must enter a date"
         elif datetime.strptime(postData['start_date'], '%Y-%m-%d') < datetime.now():           
             errors['start_date'] = 'Date cannot be in the past'
+        if postData['start_time'] == '':
+            errors['start_time'] = "Must provide a start time"
         return errors
 
 # Create your models here.
@@ -88,7 +92,8 @@ class User(models.Model):
 class Game(models.Model):
     game_name = models.CharField(max_length=100)
     location = models.CharField(max_length=250)
-    start_date = models.DateField()
+    start_date = models.DateField(max_length=30)
+    start_time = models.TimeField(default=datetime.now)
     players = models.ManyToManyField(User, related_name='games')
     creator = models.ForeignKey(User, related_name='game_creator', on_delete= models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

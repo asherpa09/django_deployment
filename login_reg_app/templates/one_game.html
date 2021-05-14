@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,40 +9,47 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/one_game.css' %}">
 </head>
 {% if messages %}
-            <ul class="messages">    
-            {% for message in messages %}    
-                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>    
-            {% endfor %}
-            </ul>
-        {% endif %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
 <body>
     <div class="container">
         <a href="/logout"><button type="button" class="btn btn-warning" style="text-align:right;">Logout</button></a>
         <a href="/success"><button type="button" class="btn btn-info">Main Page</button></a>
-        <h3 style="text-align:center;">Welcome {{user.first_name}} {{user.last_name}}!</h3><hr>
+        <h3>Welcome {{user.first_name}} {{user.last_name}}!</h3>
+        <hr>
         <div class="row">
-            <div class="col-sm-6" style="background-color:lavender;">
-        <h4>{{one_game.game_name}}</h4>
-        <p>Game to be held at: {{one_game.location}}</p>
-        <p>Created by: {{one_game.creator.first_name}} {{one_game.creator.last_name}}</p>
-        <p>Added On: {{one_game.created_at}}</p>
-        <p>Updated on: {{one_game.updated_at}}</p>   
-        <a href="/game/edit/{{one_game.id}}"><button type="button" class="btn btn-default">Edit</button></a>
-        <a href="/game/{{one_game.id}}/delete"><button type="button" class="btn btn-default">Delete</button></a><hr>
+            <div class="col-sm-6">
+                <h4>{{one_game.game_name}}</h4>
+                <p>Game to be held at: {{one_game.location}}</p>
+                <p>Game will start at: {{one_game.start_time}}</p>
+                <p>Created by: {{one_game.creator.first_name}} {{one_game.creator.last_name}}</p>
+                <p>Added On: {{one_game.created_at}}</p>
+                <p>Updated on: {{one_game.updated_at}}</p>
+                <a href="/game/edit/{{one_game.id}}"><button type="button" class="btn btn-default">Edit</button></a>
+                <a href="/game/{{one_game.id}}/delete"><button type="button" class="btn btn-default">Delete</button></a>
+                <hr>
+            </div>
+            <div class="col-sm-6" style="background-color:rgb(165, 139, 147);">
+                <h4>Players that signed up already</h4>
+                <div class="activities">
+                    {% for player in one_game.players.all %}
+                    <p>{{player.first_name}} {{player.last_name}}</p>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <div class="col-sm-6" style="background-color:lavenderblush;">
-    <h4>Players that signed up already</h4>
-    <div class="activities">
-        {% for player in one_game.players.all %}        
-        <p>{{player.first_name}} {{player.last_name}}</p>
-        {% endfor %}
-        </div>
+        <hr>
+        <a href="/signup/{{one_game.id}}"><button class="btn btn-primary" type="submit">Sign up for a game</button></a>
     </div>
-    </div>
-    <hr>
-    <a href="/signup/{{one_game.id}}"><button class="btn btn-primary" type="submit">Sign up for a game</button></a>
-</div>
 </body>
+
 </html>

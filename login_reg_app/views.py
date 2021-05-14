@@ -83,6 +83,7 @@ def createGame(request):
                 game_name = request.POST['game_name'],
                 location = request.POST['location'],
                 start_date = request.POST['start_date'],
+                start_time = request.POST['start_time'],
                 creator = this_user
             )
             game.players.add(this_user)
@@ -126,6 +127,7 @@ def update_game(request, id):
             game_to_update.game_name = request.POST['game_name']
             game_to_update.location = request.POST['location']
             game_to_update.start_date = request.POST['start_date']
+            game_to_update.start_time = request.POST['start_time']
             game_to_update.save()
         return redirect('/success')
     return redirect('/')
